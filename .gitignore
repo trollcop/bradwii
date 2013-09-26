@@ -1,0 +1,4 @@
+obj/
+*.dep
+*.uvopt
+*.uvgui.*
