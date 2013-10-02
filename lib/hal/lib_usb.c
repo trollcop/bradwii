@@ -1,3 +1,4 @@
+#if 0
 /* 
 Copyright 2013 Brad Quick
 
@@ -708,3 +709,4 @@ void lib_usb_init()
 }
 
 #endif                          /* if defined(USBCON) */
+#endif

@@ -1,3 +1,4 @@
+#if 0
 /* 
 Copyright 2013 Brad Quick
 
@@ -254,4 +255,5 @@ void lib_pwm_setduty5C(unsigned int value)
 {
     OCR5C = value;              // from 0 to top to vary duty cycle
 }
+#endif
 #endif

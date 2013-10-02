@@ -120,7 +120,8 @@ void setallmotoroutputs(int value)
 }
 
 void setoutput(unsigned char outputchannel, unsigned int value)
-{                               // value is from 1000 to 2000
+{
+    // value is from 1000 to 2000
     unsigned char timernum = outputchannel & 0xF0;
     unsigned char timerchannel = outputchannel & 0x0F;
 

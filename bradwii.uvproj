@@ -349,9 +349,9 @@
             <uSurpInc>0</uSurpInc>
             <VariousControls>
               <MiscControls>--c99 --gnu</MiscControls>
-              <Define></Define>
+              <Define>STM32F10X_MD,USE_STDPERIPH_DRIVER</Define>
               <Undefine></Undefine>
-              <IncludePath>lib\hal;src</IncludePath>
+              <IncludePath>lib\hal;src;lib\CMSIS\CM3\CoreSupport;lib\CMSIS\CM3\DeviceSupport\ST\STM32F10x;lib\STM32F10x_StdPeriph_Driver\inc</IncludePath>
             </VariousControls>
           </Cads>
           <Aads>
@@ -511,6 +511,66 @@
               <FileName>lib_usb.c</FileName>
               <FileType>1</FileType>
               <FilePath>.\lib\hal\lib_usb.c</FilePath>
+            </File>
+            <File>
+              <FileName>lib_gpio.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>.\lib\hal\lib_gpio.c</FilePath>
+            </File>
+            <File>
+              <FileName>lib_hal.h</FileName>
+              <FileType>5</FileType>
+              <FilePath>.\lib\hal\lib_hal.h</FilePath>
+            </File>
+            <File>
+              <FileName>lib_hal.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>.\lib\hal\lib_hal.c</FilePath>
+            </File>
+          </Files>
+        </Group>
+        <Group>
+          <GroupName>StdPeriphLib</GroupName>
+          <Files>
+            <File>
+              <FileName>core_cm3.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>.\lib\CMSIS\CM3\CoreSupport\core_cm3.c</FilePath>
+            </File>
+            <File>
+              <FileName>system_stm32f10x.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>.\lib\CMSIS\CM3\DeviceSupport\ST\STM32F10x\system_stm32f10x.c</FilePath>
+            </File>
+            <File>
+              <FileName>startup_stm32f10x_md.s</FileName>
+              <FileType>2</FileType>
+              <FilePath>.\lib\startup_stm32f10x_md.s</FilePath>
+            </File>
+            <File>
+              <FileName>misc.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>.\lib\STM32F10x_StdPeriph_Driver\src\misc.c</FilePath>
+            </File>
+            <File>
+              <FileName>stm32f10x_gpio.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>.\lib\STM32F10x_StdPeriph_Driver\src\stm32f10x_gpio.c</FilePath>
+            </File>
+            <File>
+              <FileName>stm32f10x_rcc.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>.\lib\STM32F10x_StdPeriph_Driver\src\stm32f10x_rcc.c</FilePath>
+            </File>
+            <File>
+              <FileName>stm32f10x_tim.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>.\lib\STM32F10x_StdPeriph_Driver\src\stm32f10x_tim.c</FilePath>
+            </File>
+            <File>
+              <FileName>stm32f10x_usart.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>.\lib\STM32F10x_StdPeriph_Driver\src\stm32f10x_usart.c</FilePath>
             </File>
           </Files>
         </Group>

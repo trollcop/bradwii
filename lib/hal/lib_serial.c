@@ -1,3 +1,4 @@
+#if 0
 /* 
 Copyright 2013 Brad Quick
 
@@ -128,7 +129,7 @@ void lib_serial_setrxcallback(unsigned char serialportnumber,serialcallbackfunct
       uscrc |=  (1 << uscz0) | (1 << uscz1); /* Use 8-bit character sizes */\
       \
       ubrrl = baudprescale; /* Load lower 8-bits of the baud rate value into the low byte of the UBRR register */ \
-      ubrrh = (baudprescale >> 8); /* Load upper 8-bits of the baud rate value into the high byte of the UBRR register */ \ 
+      ubrrh = (baudprescale >> 8); /* Load upper 8-bits of the baud rate value into the high byte of the UBRR register */ \
       ucsrb |= (1 << rxcie); /* Enable the USART Recieve Complete */ \
       }
 
@@ -338,5 +339,8 @@ SERIALISRMACRO(2,USART2_UDRE_vect,USART2_RX_vect,UDR2);
 
 #ifdef USESERIALPORT3
 SERIALISRMACRO(3,USART3_UDRE_vect,USART3_RX_vect,UDR3);
+#endif
+
+
 #endif
 

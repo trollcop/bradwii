@@ -15,10 +15,10 @@ You should have received a copy of the GNU General Public License
 along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
 
-
 #include "lib_fp.h"
+#include <stdint.h>
 
-void lib_fp_constrain(fixedpointnum * lf, fixedpointnum low, fixedpointnum high)
+void lib_fp_constrain(fixedpointnum *lf, fixedpointnum low, fixedpointnum high)
 {
     if (*lf < low)
         *lf = low;
@@ -27,7 +27,7 @@ void lib_fp_constrain(fixedpointnum * lf, fixedpointnum low, fixedpointnum high)
 }
 
 // returns the equivilent angle within the range -180 and 180 degrees
-void lib_fp_constrain180(fixedpointnum * lf)
+void lib_fp_constrain180(fixedpointnum *lf)
 {
     while (*lf < -FIXEDPOINT180)
         *lf += FIXEDPOINT360;
@@ -74,61 +74,17 @@ void lib_fp_constrain180(fixedpointnum * lf)
 // B2*D1 -> C0,D0 (unsigned, signed) 
 // C2*D1 -> D0,y0 (unsigned, signed)
 
-//#define FPPROCESSORDOESNTSUPPORTMULSU
-#ifndef FPPROCESSORDOESNTSUPPORTMULSU
-
 fixedpointnum lib_fp_multiply(fixedpointnum x, fixedpointnum y)
-{                               // multiplies two fixed point numbers without overflowing and returns the result.
-    // doing this in assembly increased the speed tremendously.
-    fixedpointnum result;
-
-//char neg=0;
-//if (x<0)
-//   {
-//   x=-x;
-//   neg=!neg;
-//   }
-//if (y<0)
-//   {
-//   y=-y;
-//   neg=!neg;
-//   }
-
-    asm volatile ("clr r26 \n\t" "mov r16,%C1 \n\t" "mul %A2, r16 \n\t" // A2*C1 -> A0,B0 (unsigned, unsigned) // do first
-                  "movw %A0, r0 \n\t" "mul %C2, r16 \n\t"       // C2*C1 -> C0,D0 (unsigned, unsigned)  // do second
-                  "movw %C0, r0 \n\t" "mul %B2, r16 \n\t"       // B2*C1 -> B0,C0 (unsigned, unsigned)
-                  "add %B0, r0 \n\t" "adc %C0, r1 \n\t" "adc %D0, r26 \n\t" "mulsu %D2, r16 \n\t"       // D2*C1 -> D0,y0 (signed, unsigned)
-                  "add %D0, r0 \n\t" "mov r16,%A1 \n\t" "mul %B2, r16 \n\t"     // B2*A1 -> x0,A0 (unsigned, unsigned)
-                  "add %A0, r1 \n\t" "adc %B0, r26 \n\t" "adc %C0, r26 \n\t" "adc %D0, r26 \n\t" "mul %C2, r16 \n\t"    // C2*A1 -> A0,B0 (unsigned, unsigned)
-                  "add %A0, r0 \n\t" "adc %B0, r1 \n\t" "adc %C0, r26 \n\t" "adc %D0, r26 \n\t" "mulsu %D2, r16 \n\t"   // D2*A1 -> B0,C0 (signed, unsigned)
-                  "sbc %D0, r26 \n\t" "add %B0, r0 \n\t" "adc %C0, r1 \n\t" "adc %D0, r26 \n\t" "mov r16,%B1 \n\t" "mul %A2, r16 \n\t"  // A2*B1 -> x0,A0 (unsigned, unsigned) 
-                  "add %A0, r1 \n\t" "adc %B0, r26 \n\t" "adc %C0, r26 \n\t" "adc %D0, r26 \n\t" "mul %B2, r16 \n\t"    // B2*B1 -> A0,B0 (unsigned, unsigned)
-                  "add %A0, r0 \n\t" "adc %B0, r1 \n\t" "adc %C0, r26 \n\t" "adc %D0, r26 \n\t" "mul %C2, r16 \n\t"     // C2*B1   -> B0,C0 (unsigned, unsigned)
-                  "add %B0, r0 \n\t" "adc %C0, r1 \n\t" "adc %D0, r26 \n\t" "mulsu %D2, r16 \n\t"       // D2*B1 -> C0,D0 (signed, unsigned)
-                  "add %C0, r0 \n\t" "adc %D0, r1 \n\t" "mov r16,%D1 \n\t" "mulsu r16, %A2 \n\t"        // A2*D1 -> B0,C0 (unsigned, signed) 
-                  "sbc %D0, r26 \n\t" "add %B0, r0 \n\t" "adc %C0, r1 \n\t" "adc %D0, r26 \n\t" "mulsu r16, %B2 \n\t"   // B2*D1 -> C0,D0 (unsigned, signed) 
-                  "add %C0, r0 \n\t" "adc %D0, r1 \n\t" "mulsu r16, %C2 \n\t"   // C2*D1 -> D0,y0 (unsigned, signed) 
-                  "add %D0, r0 \n\t" "clr r1 \n\t": "=&r" (result)
-                  : "r"(x), "a"(y)
-                  : "r26", "r16");
-
-//if (neg) return(-result);
-//if (result<0) return(result+1);
-    return (result);
-}
-
-#else                           // this will work on all processors, but it's slower
-fixedpointnum lib_fp_multiply(fixedpointnum x, fixedpointnum y)
-{                               // multiplies two fixed point numbers without overflowing and returns the result
-    long xh = x >> FIXEDPOINTSHIFT;
-    unsigned long xl = x & 0xffff;
-    long yh = y >> FIXEDPOINTSHIFT;
-    unsigned long yl = y & 0xffff;
+{
+    // multiplies two fixed point numbers without overflowing and returns the result
+    int32_t xh = x >> FIXEDPOINTSHIFT;
+    uint32_t xl = x & 0xffff;
+    int32_t yh = y >> FIXEDPOINTSHIFT;
+    uint32_t yl = y & 0xffff;
     return ((xh * yh) << FIXEDPOINTSHIFT) + xh * yl + yh * xl + ((xl * yl) >> FIXEDPOINTSHIFT);
 }
-#endif
 
-void lib_fp_lowpassfilter(fixedpointnum * variable, fixedpointnum newvalue, fixedpointnum timesliver, fixedpointnum oneoverperiod, int timesliverextrashift)
+void lib_fp_lowpassfilter(fixedpointnum *variable, fixedpointnum newvalue, fixedpointnum timesliver, fixedpointnum oneoverperiod, int timesliverextrashift)
 {                               // updates a low pass filter variable.  It uses timesliver.  oneoverperiod is one over the time period 
     // over which the filter is averaged.  We use oneoverperiod to avoid having to use division.
     // this does the equivilent of:

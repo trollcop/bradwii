@@ -61,9 +61,8 @@ m
 
 */
 
-#include "stdio.h"
-
 // library headers
+#include "lib_hal.h"
 #include "lib_timers.h"
 #include "lib_serial.h"
 #include "lib_i2c.h"
@@ -105,6 +104,9 @@ unsigned long timeslivertimer = 0;
 // It all starts here:
 int main(void)
 {
+    // initialize hardware
+    lib_hal_init();
+
     // start with default user settings in case there's nothing in eeprom
     defaultusersettings();
     // try to load usersettings from eeprom
@@ -410,8 +412,6 @@ int main(void)
 #endif
         }
     }
-
-    return 0;                   /* never reached */
 }
 
 void calculatetimesliver()

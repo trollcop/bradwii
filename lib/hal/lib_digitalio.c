@@ -1,3 +1,4 @@
+#if 0
 /* 
 Copyright 2013 Brad Quick
 
@@ -45,13 +46,13 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
       { \
       if (output & DIGITALOUTPUT)\
          { \
-         if (!(output & NOPULLUPRESISTOR)) avrport |= (1 << pinnumber); /* pull up resistor on */\ 
+         if (!(output & NOPULLUPRESISTOR)) avrport |= (1 << pinnumber); /* pull up resistor on */ \
          avrddr |= (1 << pinnumber); /* this is an output */ \
          }\
       else\
          {\
          avrddr &= ~(1 << pinnumber); /* set it to an input*/\
-         if (!(output & NOPULLUPRESISTOR)) avrport |= (1 << pinnumber); /* pull up resistor on*/\
+         if (!(output & NOPULLUPRESISTOR)) avrport |= (1 << pinnumber); /* pull up resistor on*/ \
          }\
       }\
 
@@ -1428,3 +1429,4 @@ unsigned char pcintnumber;
 
 
 
+#endif

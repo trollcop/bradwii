@@ -2,3 +2,4 @@ obj/
 *.dep
 *.uvopt
 *.uvgui.*
+*.bak
