@@ -23,30 +23,31 @@ extern globalstruct global;
 
 #define MAGICNUMBER 12345
 
-void writeusersettingstoeeprom()
+void writeusersettingstoeeprom(void)
 {
-    int magicnumber = MAGICNUMBER;
+    uint16_t magicnumber = MAGICNUMBER;
     int size = sizeof(usersettingsstruct);
 
-    eeprom_write_block((const void *) &magicnumber, (void *) 0, sizeof(magicnumber));
-    eeprom_write_block((const void *) &size, (void *) 2, sizeof(size));
-    eeprom_write_block((const void *) &usersettings, (void *) 4, size);
+    eeprom_write_block((const void *)&magicnumber, 0, sizeof(magicnumber));
+    eeprom_write_block((const void *)&size, 2, sizeof(size));
+    eeprom_write_block((const void *)&usersettings, 4, size);
+    eeprom_commit();
 }
 
-void readusersettingsfromeeprom()
+void readusersettingsfromeeprom(void)
 {
     int magicnumber = 0;
     int size = 0;
-    eeprom_read_block((void *) &magicnumber, (void *) 0, sizeof(magicnumber));
+    eeprom_read_block((void *) &magicnumber, 0, sizeof(magicnumber));
 
     if (magicnumber != MAGICNUMBER)
         return;
 
-    eeprom_read_block((void *) &size, (void *) 2, sizeof(size));
+    eeprom_read_block((void *) &size, 2, sizeof(size));
     if (size > sizeof(usersettingsstruct))
         size = sizeof(usersettingsstruct);
 
-    eeprom_read_block((void *) &usersettings, (void *) 4, size);
+    eeprom_read_block((void *) &usersettings, 4, size);
 
     global.usersettingsfromeeprom = 1;  // set a flag so the rest of the program know it's working with calibtated settings
 }

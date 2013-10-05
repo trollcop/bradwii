@@ -67,7 +67,6 @@ m
 #include "lib_serial.h"
 #include "lib_i2c.h"
 #include "lib_digitalio.h"
-#include "lib_pwm.h"
 #include "lib_fp.h"
 
 // project file headers

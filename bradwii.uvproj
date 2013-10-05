@@ -493,11 +493,6 @@
               <FilePath>.\lib\hal\lib_i2c.c</FilePath>
             </File>
             <File>
-              <FileName>lib_pwm.c</FileName>
-              <FileType>1</FileType>
-              <FilePath>.\lib\hal\lib_pwm.c</FilePath>
-            </File>
-            <File>
               <FileName>lib_serial.c</FileName>
               <FileType>1</FileType>
               <FilePath>.\lib\hal\lib_serial.c</FilePath>
@@ -508,24 +503,24 @@
               <FilePath>.\lib\hal\lib_timers.c</FilePath>
             </File>
             <File>
-              <FileName>lib_usb.c</FileName>
+              <FileName>drv_hal.c</FileName>
               <FileType>1</FileType>
-              <FilePath>.\lib\hal\lib_usb.c</FilePath>
+              <FilePath>.\lib\hal\drv_hal.c</FilePath>
             </File>
             <File>
-              <FileName>lib_gpio.c</FileName>
+              <FileName>drv_gpio.c</FileName>
               <FileType>1</FileType>
-              <FilePath>.\lib\hal\lib_gpio.c</FilePath>
+              <FilePath>.\lib\hal\drv_gpio.c</FilePath>
             </File>
             <File>
-              <FileName>lib_hal.h</FileName>
-              <FileType>5</FileType>
-              <FilePath>.\lib\hal\lib_hal.h</FilePath>
+              <FileName>drv_serial.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>.\lib\hal\drv_serial.c</FilePath>
             </File>
             <File>
-              <FileName>lib_hal.c</FileName>
+              <FileName>drv_pwm.c</FileName>
               <FileType>1</FileType>
-              <FilePath>.\lib\hal\lib_hal.c</FilePath>
+              <FilePath>.\lib\hal\drv_pwm.c</FilePath>
             </File>
           </Files>
         </Group>
@@ -571,6 +566,16 @@
               <FileName>stm32f10x_usart.c</FileName>
               <FileType>1</FileType>
               <FilePath>.\lib\STM32F10x_StdPeriph_Driver\src\stm32f10x_usart.c</FilePath>
+            </File>
+            <File>
+              <FileName>stm32f10x_dma.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>.\lib\STM32F10x_StdPeriph_Driver\src\stm32f10x_dma.c</FilePath>
+            </File>
+            <File>
+              <FileName>stm32f10x_flash.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>.\lib\STM32F10x_StdPeriph_Driver\src\stm32f10x_flash.c</FilePath>
             </File>
           </Files>
         </Group>

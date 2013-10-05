@@ -14,5 +14,9 @@
 #include "core_cm3.h"
 #include "drv_gpio.h"
 #include "drv_serial.h"
+#include "drv_pwm.h"
 
 void lib_hal_init(void);
+void eeprom_read_block (void *dst, uint16_t index, size_t size);
+void eeprom_write_block (const void *src, uint16_t index, size_t size);
+void eeprom_commit(void);
