@@ -44,7 +44,7 @@ extern usersettingsstruct usersettings;
 extern const char checkboxnames[];
 extern unsigned int lib_i2c_error_count;
 
-void serialinit()
+void serialinit(void)
 {
 #if (MULTIWII_CONFIG_SERIAL_PORTS & SERIALPORT0)
     lib_serial_initport(0, SERIAL_0_BAUD);
@@ -446,7 +446,7 @@ void serialcheckportforactiontest(char portnumber)
 #endif
 #endif
 
-void serialcheckforaction()
+void serialcheckforaction(void)
 {                               // to be called by the main program every cycle so that we can check to see if we need to respond to incoming characters
 #if (MULTIWII_CONFIG_SERIAL_PORTS & SERIALPORT0)
     serialcheckportforaction(0);

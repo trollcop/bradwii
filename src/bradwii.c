@@ -404,16 +404,16 @@ int main(void)
         else {
             // mix the outputs to create motor values
 #if (AIRCRAFT_CONFIGURATION==QUADX)
-            setmotoroutput(0, MOTOR_0_CHANNEL, throttleoutput - pidoutput[ROLLINDEX] + pidoutput[PITCHINDEX] - pidoutput[YAWINDEX]);
-            setmotoroutput(1, MOTOR_1_CHANNEL, throttleoutput - pidoutput[ROLLINDEX] - pidoutput[PITCHINDEX] + pidoutput[YAWINDEX]);
-            setmotoroutput(2, MOTOR_2_CHANNEL, throttleoutput + pidoutput[ROLLINDEX] + pidoutput[PITCHINDEX] + pidoutput[YAWINDEX]);
-            setmotoroutput(3, MOTOR_3_CHANNEL, throttleoutput + pidoutput[ROLLINDEX] - pidoutput[PITCHINDEX] - pidoutput[YAWINDEX]);
+            setmotoroutput(0, 0, throttleoutput - pidoutput[ROLLINDEX] + pidoutput[PITCHINDEX] - pidoutput[YAWINDEX]);
+            setmotoroutput(1, 1, throttleoutput - pidoutput[ROLLINDEX] - pidoutput[PITCHINDEX] + pidoutput[YAWINDEX]);
+            setmotoroutput(2, 2, throttleoutput + pidoutput[ROLLINDEX] + pidoutput[PITCHINDEX] + pidoutput[YAWINDEX]);
+            setmotoroutput(3, 3, throttleoutput + pidoutput[ROLLINDEX] - pidoutput[PITCHINDEX] - pidoutput[YAWINDEX]);
 #endif
         }
     }
 }
 
-void calculatetimesliver()
+void calculatetimesliver(void)
 {
     // load global.timesliver with the amount of time that has passed since we last went through this loop
     // convert from microseconds to fixedpointnum seconds shifted by TIMESLIVEREXTRASHIFT
@@ -425,7 +425,7 @@ void calculatetimesliver()
         global.timesliver = FIXEDPOINTONEFIFTIETH << TIMESLIVEREXTRASHIFT;
 }
 
-void defaultusersettings()
+void defaultusersettings(void)
 {
     global.usersettingsfromeeprom = 0;  // this should get set to one if we read from eeprom
 

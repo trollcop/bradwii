@@ -46,15 +46,15 @@ void compassfilterrawvalues(int *rawvalues)
 
 #if (COMPASS_TYPE==NO_COMPASS)
 
-void initcompass()
+void initcompass(void)
 {
 }
 
-void calibratecompass()
+void calibratecompass(void)
 {
 }
 
-char readcompass()
+char readcompass(void)
 {
     return (0);
 }
@@ -93,7 +93,7 @@ void compassreadrawvalues(int *compassrawvalues)
     compasstimer = lib_timers_starttimer();
 }
 
-void initcompass()
+void initcompass(void)
 {
     lib_timers_delaymilliseconds(100);
 
@@ -106,7 +106,7 @@ void initcompass()
     lib_i2c_writereg(MAG_ADDRESS, 0x02, 0x00);  //Mode register             -- 000000 00    continuous Conversion Mode
 }
 
-char readcompass()
+char readcompass(void)
 {                               // returns 1 if we actually read something, zero otherwise.  Sets global.compassnorthvector to a unit vector (approximately)
     if (lib_timers_gettimermicroseconds(compasstimer) >= 70000L) {
         int compassrawvalues[3];
@@ -161,7 +161,7 @@ void mag_command(unsigned char value, int reg_num)
     lib_i2c_writereg(MAG_ADDRESS, reg, value);
 }
 
-void initcompass()
+void initcompass(void)
 {
     /*
        Values for control register 1
@@ -175,7 +175,7 @@ void initcompass()
     mag_command(0x01, 1);       // put mag in active mode
 }
 
-char readcompass()
+char readcompass(void)
 {
     fixedpointnum a;
     fixedpointnum b;
@@ -209,7 +209,7 @@ char readcompass()
 
 unsigned long compasstimer;
 
-void initcompass()
+void initcompass(void)
 {
     lib_timers_delaymilliseconds(100);
 
@@ -249,7 +249,7 @@ void compassreadrawvalues(int *compassrawvalues)
     compasstimer = lib_timers_starttimer();
 }
 
-char readcompass()
+char readcompass(void)
 {                               // returns 1 if we actually read something, zero otherwise.  Sets global.compassvector to a unit vector (approximately)
     if (lib_timers_gettimermicroseconds(compasstimer) >= 70000L) {
         int compassrawvalues[3];
@@ -268,7 +268,7 @@ char readcompass()
 
 #endif
 
-void calibratecompass()
+void calibratecompass(void)
 {
     int minvalues[3] = { 0 };
     int maxvalues[3] = { 0 };

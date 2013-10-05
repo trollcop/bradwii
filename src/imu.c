@@ -67,7 +67,7 @@ fixedpointnum lastbarorawaltitude;      // remember our last reading so we can c
 
 // read the acc and gyro a bunch of times and get an average of how far off they are.
 // assumes the aircraft is sitting level and still.
-void calibrategyroandaccelerometer()
+void calibrategyroandaccelerometer(void)
 {
     for (int x = 0; x < 3; ++x) {
         usersettings.gyrocalibration[x] = 0;
@@ -93,7 +93,7 @@ void calibrategyroandaccelerometer()
     }
 }
 
-void initimu()
+void initimu(void)
 {
     // calibrate every time if we dont load any data from eeprom
     if (global.usersettingsfromeeprom == 0)
@@ -117,7 +117,7 @@ void initimu()
 //fixedpointnum timesincezerocrossing[3]={0};
 //char gyropositive[3]={0};
 
-void imucalculateestimatedattitude()
+void imucalculateestimatedattitude(void)
 {
     readgyro();
     readacc();

@@ -52,7 +52,7 @@ extern globalstruct global;
 //                      |          xxxxxxxxxxxxx              |                    8G:   101       | xxxxxxxx |
 // ************************************************************************************************************
 
-void initacc()
+void initacc(void)
 {
     lib_timers_delaymilliseconds(10);
     //default range 2G: 1G = 4096 unit.
@@ -75,7 +75,7 @@ void initacc()
     lib_timers_delaymilliseconds(5);
 }
 
-void readacc()
+void readacc(void)
 {
     unsigned char data[6];
     lib_i2c_readdata(BMA180_ADDRESS, 0x02, (unsigned char *) &data, 6);
@@ -88,12 +88,12 @@ void readacc()
 #elif (ACCELEROMETER_TYPE==MPU6050)
 #define MPU6050_ADDRESS     0x68        // address pin AD0 low (GND), default for FreeIMU v0.4 and InvenSense evaluation board
 
-void initacc()
+void initacc(void)
 {
     lib_i2c_writereg(MPU6050_ADDRESS, 0x1C, 0x10);      //ACCEL_CONFIG  -- AFS_SEL=2 (Full Scale = +/-8G)  ; ACCELL_HPF=0   //note something is wrong in the spec.
 }
 
-void readacc()
+void readacc(void)
 {
     unsigned char data[6];
 

@@ -33,12 +33,12 @@ extern globalstruct global;
 
 
 #if (BAROMETER_TYPE==NO_BAROMETER)
-void initbaro()
+void initbaro(void)
 {
     global.barorawaltitude = 0;
 }
 
-char readbaro()
+char readbaro(void)
 {
     return (0);
 }
@@ -59,7 +59,7 @@ static struct {
 
 unsigned int bmp085_ut = 0;
 
-void bmp085_readcalibration()
+void bmp085_readcalibration(void)
 {
     //read calibration data in one go
     unsigned char s_bytes = (unsigned char *) &bmp085_ctx.md - (unsigned char *) &bmp085_ctx.ac1 + sizeof(bmp085_ctx.ac1);
@@ -74,14 +74,14 @@ void bmp085_readcalibration()
     }
 }
 
-void bmp085_starttemperaturereading()
+void bmp085_starttemperaturereading(void)
 {
     bmp085_ut = 0;              // by setting to zero, we will remember that we are waiting for temperature next time through the loop
     lib_i2c_writereg(BMP085_ADDRESS, 0xf4, 0x2e);
     barotimer = lib_timers_starttimer();
 }
 
-void bmp085_startpressurereading()
+void bmp085_startpressurereading(void)
 {
     // start the pressure reading
     lib_i2c_writereg(BMP085_ADDRESS, 0xf4, 0x34 + (BMP085_MODE << 6));  // control register value for oversampling setting 3
@@ -90,7 +90,7 @@ void bmp085_startpressurereading()
 
 // read uncompensated pressure value: read result bytes
 // the datasheet suggests a delay of 25.5 ms (oversampling settings 3) after the send command
-void bmp085_gettemperature()
+void bmp085_gettemperature(void)
 {
     unsigned char data[2];
     // read temperature
@@ -98,7 +98,7 @@ void bmp085_gettemperature()
     bmp085_ut = (((unsigned int) data[0] << 8) | ((unsigned int) data[1]));
 }
 
-void bmp085_getpressureandcalculatealtitude()
+void bmp085_getpressureandcalculatealtitude(void)
 {                               // this is the code provided by the manufacturer.  Unfortunately, it uses division, which is slow.
     unsigned long up;
     unsigned char data[3];
@@ -144,7 +144,7 @@ void bmp085_getpressureandcalculatealtitude()
     global.barorawaltitude = (10351L << FIXEDPOINTSHIFT) - lib_fp_multiply(pressure, 439804651L);
 }
 
-void initbaro()
+void initbaro(void)
 {
     global.altitude = 0;
     bmp085_readcalibration();
@@ -154,7 +154,7 @@ void initbaro()
     }                           // make sure we start off with a good reading
 }
 
-char readbaro()
+char readbaro(void)
 {                               // returns 1 if we actually have a new reading
     if (bmp085_ut == 0)         // we are waiting for temperature
     {                           // wait 5 milliseconds
@@ -215,18 +215,19 @@ static struct {
     unsigned long barotimer;
 } ms561101ba_ctx;
 
-void i2c_MS561101BA_reset()
+void i2c_MS561101BA_reset(void)
 {
     lib_i2c_writereg(MS561101BA_ADDRESS, MS561101BA_RESET, 0);
 }
 
-void i2c_MS561101BA_readCalibration()
+void i2c_MS561101BA_readCalibration(void)
 {
+    int i;
     union {
-        unsigned int val;
-        unsigned char raw[2];
+        uint16_t val;
+        uint8_t raw[2];
     } data;
-    for (unsigned char i = 0; i < 6; i++) {
+    for (i = 0; i < 6; i++) {
         lib_i2c_rep_start(MS561101BA_ADDRESS << 1);
         lib_i2c_write(0xA2 + 2 * i);
         lib_timers_delaymilliseconds(10);
@@ -239,7 +240,7 @@ void i2c_MS561101BA_readCalibration()
 }
 
 // read uncompensated temperature value: send command first
-void i2c_MS561101BA_UT_Start()
+void i2c_MS561101BA_UT_Start(void)
 {
     lib_i2c_rep_start(MS561101BA_ADDRESS << 1); // I2C write direction
     lib_i2c_write(MS561101BA_TEMPERATURE + OSR);        // register selection
@@ -247,7 +248,7 @@ void i2c_MS561101BA_UT_Start()
 }
 
 // read uncompensated pressure value: send command first
-void i2c_MS561101BA_UP_Start()
+void i2c_MS561101BA_UP_Start(void)
 {
     lib_i2c_rep_start(MS561101BA_ADDRESS << 1); // I2C write direction
     lib_i2c_write(MS561101BA_PRESSURE + OSR);   // register selection
@@ -255,7 +256,7 @@ void i2c_MS561101BA_UP_Start()
 }
 
 // read uncompensated pressure value: read result bytes
-void i2c_MS561101BA_UP_Read()
+void i2c_MS561101BA_UP_Read(void)
 {
     lib_i2c_rep_start(MS561101BA_ADDRESS << 1);
     lib_i2c_write(0);
@@ -266,7 +267,7 @@ void i2c_MS561101BA_UP_Read()
 }
 
 // read uncompensated temperature value: read result bytes
-void i2c_MS561101BA_UT_Read()
+void i2c_MS561101BA_UT_Read(void)
 {
     lib_i2c_rep_start(MS561101BA_ADDRESS << 1);
     lib_i2c_write(0);
@@ -276,7 +277,7 @@ void i2c_MS561101BA_UT_Read()
     ms561101ba_ctx.ut.raw[0] = lib_i2c_readnak();
 }
 
-void i2c_MS561101BA_Calculate()
+void i2c_MS561101BA_Calculate(void)
 {
     long off2, sens2, delt;
 
@@ -309,7 +310,7 @@ void i2c_MS561101BA_Calculate()
     global.barorawaltitude = (10351L << FIXEDPOINTSHIFT) - lib_fp_multiply(pressure, 439804651L);
 }
 
-void initbaro()
+void initbaro(void)
 {
     lib_timers_delaymilliseconds(10);
     i2c_MS561101BA_reset();
@@ -320,7 +321,7 @@ void initbaro()
     ms561101ba_ctx.barotimer = lib_timers_starttimer();
 }
 
-char readbaro()
+char readbaro(void)
 {
     //return 0: no new data available, no computation ;  1: new value available
     // first UT conversion is started in init procedure      

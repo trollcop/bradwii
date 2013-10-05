@@ -50,7 +50,7 @@ extern globalstruct global;
 #define ITG3200_DLPF_CFG 5
 #endif
 
-void initgyro()
+void initgyro(void)
 {
     lib_timers_delaymilliseconds(100);
     lib_i2c_writereg(ITG3200_ADDRESS, 0x3E, 0x80);      //register: Power Management  --  value: reset device
@@ -61,7 +61,7 @@ void initgyro()
     lib_timers_delaymilliseconds(100);
 }
 
-void readgyro()
+void readgyro(void)
 {
     unsigned char data[6];
     lib_i2c_readdata(ITG3200_ADDRESS, 0X1D, (unsigned char *) &data, 6);
@@ -81,7 +81,7 @@ void readgyro()
 #define MPU6050_DLPF_CFG   6
 #endif
 
-void initgyro()
+void initgyro(void)
 {
 
     lib_i2c_writereg(MPU6050_ADDRESS, 0x6B, 0x80);      //PWR_MGMT_1    -- DEVICE_RESET 1
@@ -91,7 +91,7 @@ void initgyro()
     lib_i2c_writereg(MPU6050_ADDRESS, 0x1B, 0x18);      //GYRO_CONFIG   -- FS_SEL = 3: Full scale set to 2000 deg/sec
 }
 
-void readgyro()
+void readgyro(void)
 {
     unsigned char data[6];
     lib_i2c_readdata(MPU6050_ADDRESS, 0x43, (unsigned char *) &data, 6);

@@ -28,7 +28,7 @@ char checkboxnames[] /* PROGMEM */  =   // names for dynamic generation of confi
 
 // each checkbox item has a checkboxvalue.  The bits in this value represent low, medium, and high checkboxes
 // for each of the aux switches, just as they show up in most config programs.
-void checkcheckboxitems()
+void checkcheckboxitems(void)
 {
     global.previousactivecheckboxitems = global.activecheckboxitems;
     global.activecheckboxitems = 0;

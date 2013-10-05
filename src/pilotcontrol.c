@@ -37,7 +37,7 @@ fixedpointnum desiredcompassheading;
 fixedpointnum highyawrate;
 fixedpointnum highpitchandrollrate;
 
-void resetpilotcontrol()
+void resetpilotcontrol(void)
 {                               // called when switching from navigation control to pilot control or when idling on the ground.
     // keeps us from accumulating yaw error that we can't correct.
     desiredcompassheading = global.currentestimatedeulerattitude[YAWINDEX];
@@ -191,7 +191,7 @@ rotational path to the desired attitude.  The downside is that it's slow and it'
 fixedpointnum desiredwestvector[3]={FIXEDPOINTONE,0,0};
 fixedpointnum lastyawerror=0;
 
-void resetpilotcontrol()
+void resetpilotcontrol(void)
    { // called when switching from navigation control to pilot control or when idling on the ground.
    // keeps us from accumulating yaw error that we can't correct.
    for (int x=0;x<3;++x)
@@ -311,7 +311,7 @@ fixedpointnum desireddownvector[3]={0,0,FIXEDPOINTONE};
 fixedpointnum lastyawerror=0;
 fixedpointnum lastpitcherror=0;
 
-void resetpilotcontrol()
+void resetpilotcontrol(void)
    { // called when switching from navigation control to pilot control or when idling on the ground.
    // keeps us from accumulating yaw error that we can't correct.
    for (int x=0;x<3;++x)

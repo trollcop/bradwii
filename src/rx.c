@@ -217,7 +217,7 @@ void dsm2serialcallback(unsigned char c)
     }
 }
 
-void initrx()
+void initrx(void)
 {
     dsm2timer = lib_timers_starttimer();
 
@@ -225,7 +225,7 @@ void initrx()
     lib_serial_setrxcallback(RX_DSM2_SERIAL_PORT, dsm2serialcallback);
 }
 
-void readrx()
+void readrx(void)
 {
     for (int x = 0; x < RXNUMCHANNELS; ++x) {
 #if (RX_TYPE==RX_DSM2_1024)
@@ -276,7 +276,7 @@ void serialsumcallback(unsigned char interruptnumber, unsigned char newstate)
     }
 }
 
-void readrx()
+void readrx(void)
 {
     unsigned char chan;
 
@@ -284,7 +284,7 @@ void readrx()
         lib_fp_lowpassfilter(&global.rxvalues[channelindex[chan]], ((fixedpointnum) rxrawvalues[chan] - 1500) * 131L, global.timesliver, FIXEDPOINTONEOVERONESIXTYITH, TIMESLIVEREXTRASHIFT);
 }
 
-void initrx()
+void initrx(void)
 {
     for (int x = 0; x < RXNUMCHANNELS; ++x)
         global.rxvalues[x] = 0; // middle position
