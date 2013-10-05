@@ -254,7 +254,7 @@ void USART2_IRQHandler(void)
     if (SR & USART_FLAG_RXNE) {
         // If we registered a callback, pass crap there
         if (s->callback) {
-            s->callback(s->USARTx->DR);
+            s->callback((uint8_t)s->USARTx->DR);
         } else {
             s->rxBuffer[s->rxBufferHead] = s->USARTx->DR;
             s->rxBufferHead = (s->rxBufferHead + 1) % s->rxBufferSize;

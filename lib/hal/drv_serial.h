@@ -15,7 +15,7 @@ typedef enum portMode_t {
     MODE_RXTX = MODE_RX | MODE_TX
 } portMode_t;
 
-typedef void (* serialReceiveCallbackPtr)(uint16_t data);   // used by serial drivers to return frames to app
+typedef void (* serialReceiveCallbackPtr)(uint8_t data);   // used by serial drivers to return frames to app
 
 typedef struct {
     portMode_t mode;
