@@ -249,7 +249,7 @@ fixedpointnum lib_fp_sqrt(fixedpointnum x)
     return (lib_fp_multiply(x, lib_fp_invsqrt(x)));
 }
 
-long lib_fp_stringtolong(char *string)
+int32_t lib_fp_stringtolong(char *string)
 {                               // converts a string to an integer.  Stops at any character other than 0-9 or '-'.  Stops at decimal places too.
     long value = 0;
     char negative = 0;

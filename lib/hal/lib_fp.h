@@ -25,13 +25,15 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 // Therefore, the range of a fixedpointnum is -32768.0 to 32786.0 with an accuracy of 0.000015
 // There is no overflow or underflow protection, so it's up to the programmer to watch out.
 
-#define fixedpointnum long
+#include "hal.h"
+
+#define fixedpointnum int32_t
 
 #define FIXEDPOINTSHIFT 16
 
 #define FIXEDPOINTONE (1L<<FIXEDPOINTSHIFT)
 
-#define FIXEDPOINTCONSTANT(number) ((fixedpointnum)(number*FIXEDPOINTONE))
+#define FIXEDPOINTCONSTANT(number) ((fixedpointnum)(number * FIXEDPOINTONE))
 
 #define FIXEDPOINT45 (45L<<FIXEDPOINTSHIFT)
 #define FIXEDPOINT80 (80L<<FIXEDPOINTSHIFT)
@@ -67,4 +69,4 @@ fixedpointnum lib_fp_atan2(fixedpointnum y, fixedpointnum x);
 fixedpointnum lib_fp_sqrt(fixedpointnum x);
 fixedpointnum lib_fp_stringtofixedpointnum(char *string);
 fixedpointnum lib_fp_invsqrt(fixedpointnum x);
-long lib_fp_stringtolong(char *string);
+int32_t lib_fp_stringtolong(char *string);

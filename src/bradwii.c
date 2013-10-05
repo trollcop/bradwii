@@ -62,7 +62,7 @@ m
 */
 
 // library headers
-#include "lib_hal.h"
+#include "hal.h"
 #include "lib_timers.h"
 #include "lib_serial.h"
 #include "lib_i2c.h"

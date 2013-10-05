@@ -35,7 +35,7 @@ extern globalstruct global;
 #define PRESCALER11BIT PWM411BITPRESCALER16
 #endif
 
-void initoutputs()
+void initoutputs(void)
 {
 #ifdef USEPWM1
     lib_pwm_init1(PWM1PHASECORRECTMODE, PWM1NORMALOUTPUTA | PWM1NORMALOUTPUTB, PWM1PRESCALER1, TOPMOTORCOUNT16BIT);     // TOP to 16383
@@ -85,7 +85,8 @@ void initoutputs()
 }
 
 void setmotoroutput(unsigned char motornum, unsigned char motorchannel, fixedpointnum fpvalue)
-{                               // set the output of a motor
+{
+    // set the output of a motor
     // convert from fixedpoint 0 to 1 into int 1000 to 2000
     int value = 1000 + ((fpvalue * 1000L) >> FIXEDPOINTSHIFT);
 

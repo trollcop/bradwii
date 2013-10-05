@@ -1,6 +1,7 @@
-#include "lib_hal.h"
+#include "hal.h"
 
 extern void SetSysClock(void);
+#define AFIO_MAPR_SWJ_CFG_NO_JTAG_SW            (0x2 << 24)
 
 void lib_hal_init(void)
 {
@@ -24,6 +25,5 @@ void lib_hal_init(void)
     gpioInit(GPIOC, &gpio);
 
     // Turn off JTAG port 'cause we're using the GPIO for leds
-#define AFIO_MAPR_SWJ_CFG_NO_JTAG_SW            (0x2 << 24)
     AFIO->MAPR |= AFIO_MAPR_SWJ_CFG_NO_JTAG_SW;
 }

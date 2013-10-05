@@ -1,4 +1,4 @@
-#include "lib_hal.h"
+#include "hal.h"
 
 void gpioInit(GPIO_TypeDef *gpio, gpio_config_t *config)
 {

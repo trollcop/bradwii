@@ -15,7 +15,7 @@ You should have received a copy of the GNU General Public License
 along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
 
-#include "lib_hal.h"
+#include "hal.h"
 #include "lib_timers.h"
 
 // This code creates a timer to count microseconds and includes support for using this timer to run multiple
