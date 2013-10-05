@@ -13,5 +13,6 @@
 #include "stm32f10x_conf.h"
 #include "core_cm3.h"
 #include "drv_gpio.h"
+#include "drv_serial.h"
 
 void lib_hal_init(void);
